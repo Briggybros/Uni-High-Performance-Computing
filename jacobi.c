@@ -39,22 +39,16 @@ void parse_arguments(int argc, char *argv[]);
 
 // Run the Jacobi solver
 // Returns the number of iterations performed
-int run(double *A, double *b, double *x, double *xtmp) {
-    int itr;
-    int row, col;
-    double dot;
-    double diff;
-    double sqdiff;
+int run(double *A, double *b, double *x, double *xtmp) 
     double *ptrtmp;
     
     // Loop until converged or maximum iterations reached
-    itr = 0;
+    int itr = 0;
     do {
         // Perfom Jacobi iteration
-        for (row = 0; row < N; row++) {
-            dot = 0.0;
-            for (col = 0; col < N; col++)
-            {
+        for (int row = 0; row < N; row++) {
+            double dot = 0.0;
+            for (int col = 0; col < N; col++) {
                 if (row != col)
                 dot += A[row + col*N] * x[col];
             }
@@ -62,14 +56,14 @@ int run(double *A, double *b, double *x, double *xtmp) {
         }
         
         // Swap pointers
-        ptrtmp = x;
+        double *ptrtmp = x;
         x      = xtmp;
         xtmp   = ptrtmp;
         
         // Check for convergence
-        sqdiff = 0.0;
-        for (row = 0; row < N; row++) {
-            diff    = xtmp[row] - x[row];
+        double sqdiff = 0.0;
+        for (int row = 0; row < N; row++) {
+            double diff    = xtmp[row] - x[row];
             sqdiff += diff * diff;
         }
         
