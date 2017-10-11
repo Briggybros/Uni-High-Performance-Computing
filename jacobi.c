@@ -43,7 +43,6 @@ int run(double * restrict A, double * restrict b, double * restrict x, double * 
     int itr;
     int row, col;
     double dot;
-    double diff;
     double sqdiff;
     double *ptrtmp;
     
@@ -59,6 +58,9 @@ int run(double * restrict A, double * restrict b, double * restrict x, double * 
                 dot += A[row + col*N] * x[col];
             }
             xtmp[row] = (b[row] - dot) / A[row + row*N];
+
+            // Check for convergence
+            sqdiff += (x[row] - xtmp[row]) * (x[row] - xtmp[row]);
         }
         
         // Swap pointers
@@ -66,12 +68,6 @@ int run(double * restrict A, double * restrict b, double * restrict x, double * 
         x      = xtmp;
         xtmp   = ptrtmp;
         
-        // Check for convergence
-        for (row = 0; row < N; row++) {
-            diff = xtmp[row] - x[row];
-            sqdiff += diff * diff;
-        }
-
         itr++;
     } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
     
