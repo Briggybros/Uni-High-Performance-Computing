@@ -39,12 +39,12 @@ void parse_arguments(int argc, char *argv[]);
 
 // Run the Jacobi solver
 // Returns the number of iterations performed
-int run(double * restrict A, double * restrict b, double * restrict x, double * restrict xtmp) {
+int run(float * restrict A, float * restrict b, float * restrict x, float * restrict xtmp) {
     int itr;
     int row, col;
-    double dot;
-    double sqdiff;
-    double *ptrtmp;
+    float dot;
+    float sqdiff;
+    float *ptrtmp;
     
     // Loop until converged or maximum iterations reached
     itr = 0;
@@ -77,10 +77,10 @@ int run(double * restrict A, double * restrict b, double * restrict x, double * 
 int main(int argc, char *argv[]) {
     parse_arguments(argc, argv);
     
-    double *A    = malloc(N*N*sizeof(double));
-    double *b    = malloc(N*sizeof(double));
-    double *x    = malloc(N*sizeof(double));
-    double *xtmp = malloc(N*sizeof(double));
+    float *A    = malloc(N*N*sizeof(double));
+    float *b    = malloc(N*sizeof(double));
+    float *x    = malloc(N*sizeof(double));
+    float *xtmp = malloc(N*sizeof(double));
     
     printf(SEPARATOR);
     printf("Matrix size:            %dx%d\n", N, N);
@@ -93,16 +93,16 @@ int main(int argc, char *argv[]) {
     // Initialize data
     srand(SEED);
     for (int row = 0; row < N; row++) {
-        double rowsum = 0.0;
+        float rowsum = 0.0;
         for (int col = 0; col < N; col++)
         {
-            double value = rand()/(double)RAND_MAX;
+            float value = rand()/(float)RAND_MAX;
             A[row + col*N] = value;
             rowsum += value;
         }
         A[row + row*N] += rowsum;
-        b[row] = rand()/(double)RAND_MAX;
-        x[row] = 0.0;
+        b[row] = (float)(rand()/(float)RAND_MAX);
+        x[row] = (float)0.0;
     }
     
     // Run Jacobi solver
