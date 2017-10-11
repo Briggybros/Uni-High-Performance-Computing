@@ -39,7 +39,7 @@ void parse_arguments(int argc, char *argv[]);
 
 // Run the Jacobi solver
 // Returns the number of iterations performed
-int run(double *A, double *b, double *x, double *xtmp) {
+int run(double * restrict A, double * restrict b, double * restrict x, double * restrict xtmp) {
     int itr;
     int row, col;
     double dot;
