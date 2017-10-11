@@ -37,21 +37,12 @@ double get_timestamp();
 // Parse command line arguments to set solver parameters
 void parse_arguments(int argc, char *argv[]);
 
-void doJacobi(double *A, double *b, double *x, double *xtmp) {
-    for (int row = 0; row < N; row++) {
-        double dot = 0.0;
-        for (int col = 0; col < N; col++) {
-            if (row != col)
-            dot += A[row + col*N] * x[col];
-        }
-        xtmp[row] = (b[row] - dot) / A[row + row*N];
-    }
-}
-
 // Run the Jacobi solver
 // Returns the number of iterations performed
 int run(double *A, double *b, double *x, double *xtmp) {
     int itr;
+    int row, col;
+    double dot;
     double diff;
     double sqdiff;
     double *ptrtmp;
@@ -60,7 +51,14 @@ int run(double *A, double *b, double *x, double *xtmp) {
     itr = 0;
     do {
         // Perfom Jacobi iteration
-        
+        for (row = 0; row < N; row++) {
+            dot = 0.0;
+            for (col = 0; col < N; col++) {
+                if (row != col)
+                dot += A[row + col*N] * x[col];
+            }
+            xtmp[row] = (b[row] - dot) / A[row + row*N];
+        }
         
         // Swap pointers
         ptrtmp = x;
@@ -69,7 +67,7 @@ int run(double *A, double *b, double *x, double *xtmp) {
         
         // Check for convergence
         sqdiff = 0.0;
-        for (int row = 0; row < N; row++) {
+        for (row = 0; row < N; row++) {
             diff    = xtmp[row] - x[row];
             sqdiff += diff * diff;
         }
