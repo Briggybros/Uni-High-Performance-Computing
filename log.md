@@ -1,4 +1,6 @@
-| Description | N | Total Runtime (s) |
-|---|---|---|
-|Starting configuration|1000|10.864682|
-|With profiler|1000|10.911640|
+## Starting configuration ##
+| Matrix Size | Solution Error | Iterations | Total Runtime | Solver Runtime |
+|-------------|----------------|------------|---------------|----------------|
+| 1000        | 0.050047       | 2957       | 10.891718     | 10.875297      |
+| 2000        | 0.099977       | 5479       | 131.223217    | 131.126788     |
+| 4000        | 0.000000       | 0000       | 0000000000    | 0000000000     |
