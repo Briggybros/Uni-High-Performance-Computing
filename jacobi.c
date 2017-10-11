@@ -50,6 +50,7 @@ int run(double *A, double *b, double *x, double *xtmp) {
     // Loop until converged or maximum iterations reached
     itr = 0;
     do {
+        sqdiff = 0.0;
         // Perfom Jacobi iteration
         for (row = 0; row < N; row++) {
             dot = 0.0;
@@ -58,19 +59,16 @@ int run(double *A, double *b, double *x, double *xtmp) {
                 dot += A[row + col*N] * x[col];
             }
             xtmp[row] = (b[row] - dot) / A[row + row*N];
+
+            // Check for convergence
+            diff    = x[row] - xtmp[row];
+            sqdiff += diff * diff;
         }
         
         // Swap pointers
         ptrtmp = x;
         x      = xtmp;
         xtmp   = ptrtmp;
-        
-        // Check for convergence
-        sqdiff = 0.0;
-        for (row = 0; row < N; row++) {
-            diff    = xtmp[row] - x[row];
-            sqdiff += diff * diff;
-        }
         
         itr++;
     } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
