@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -std=c99 -Wall
+CFLAGS = -std=c99 -Wall -O3
 LDFLAGS = -lm
 
 jacobi: jacobi.c
