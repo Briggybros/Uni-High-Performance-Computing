@@ -61,7 +61,7 @@ int run(double * restrict A, double * restrict b, double * restrict x, double * 
             xtmp[row] = (b[row] - dot) / A[row + row*N];
 
             // Check for convergence
-            diff    = x[row] - xtmp[row];
+            diff = x[row] - xtmp[row];
             sqdiff += diff * diff;
         }
         
