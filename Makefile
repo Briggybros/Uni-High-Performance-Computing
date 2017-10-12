@@ -1,5 +1,5 @@
-CC = icpc
-CFLAGS = -std=c99 -Wall -O3 -ffast-math -ftree-vectorizer-verbose=2
+CC = icc
+CFLAGS = -Wall -O3
 LDFLAGS = -lm
 
 jacobi: jacobi.c
