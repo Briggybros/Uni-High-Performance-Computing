@@ -55,7 +55,7 @@ int run(float * restrict A, float * restrict b, float * restrict x, float * rest
             dot = 0.0;
             for (col = 0; col < N; col++) {
                 if (row != col)
-                dot += A[row + col*N] * x[col];
+                dot += A[row * N + col] * x[col];
             }
             xtmp[row] = (b[row] - dot) / A[row + row*N];
 
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
         for (int col = 0; col < N; col++)
         {
             float value = rand()/(float)RAND_MAX;
-            A[row + col*N] = value;
+            A[row * N + col] = value;
             rowsum += value;
         }
         A[row + row*N] += rowsum;
@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
     for (int row = 0; row < N; row++) {
         double tmp = 0.0;
         for (int col = 0; col < N; col++) {
-            tmp += A[row + col*N] * x[col];
+            tmp += A[row * N + col] * x[col];
         }
         tmp = b[row] - tmp;
         err += tmp*tmp;
