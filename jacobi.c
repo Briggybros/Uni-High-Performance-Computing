@@ -77,10 +77,10 @@ int run(float * restrict A, float * restrict b, float * restrict x, float * rest
 int main(int argc, char *argv[]) {
     parse_arguments(argc, argv);
     
-    float *A    = malloc(N*N*sizeof(double));
-    float *b    = malloc(N*sizeof(double));
-    float *x    = malloc(N*sizeof(double));
-    float *xtmp = malloc(N*sizeof(double));
+    float *A    = (float *) malloc(N*N*sizeof(double));
+    float *b    = (float *) malloc(N*sizeof(double));
+    float *x    = (float *) malloc(N*sizeof(double));
+    float *xtmp = (float *) malloc(N*sizeof(double));
     
     printf(SEPARATOR);
     printf("Matrix size:            %dx%d\n", N, N);

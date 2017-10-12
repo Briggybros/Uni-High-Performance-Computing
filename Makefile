@@ -1,4 +1,4 @@
-CC = cc
+CC = icpc
 CFLAGS = -std=c99 -Wall -O3 -ffast-math -ftree-vectorizer-verbose=2
 LDFLAGS = -lm
 
