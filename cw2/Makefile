@@ -1,5 +1,5 @@
 CC = icc
-CFLAGS = -std=c11 -Wall -fast -axAVX -fopenmp
+CFLAGS = -std=c11 -Wall -fast -axAVX
 LDFLAGS = -lm
 
 jacobi: jacobi.c
