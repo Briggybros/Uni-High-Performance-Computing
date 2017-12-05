@@ -41,8 +41,6 @@ void parse_arguments(int argc, char *argv[]);
 // Returns the number of iterations performed
 int run(float * restrict A, float * restrict b, float * restrict x, float * restrict xtmp) {
     int itr;
-    int row, col;
-    float dot;
     float sqdiff;
     float *ptrtmp;
     
@@ -51,23 +49,25 @@ int run(float * restrict A, float * restrict b, float * restrict x, float * rest
     do {
         sqdiff = 0.0;
         // Perfom Jacobi iteration
-        #pragma omp parallel for private(dot, col)
-        for (row = 0; row < N; row++) {
-            dot = 0.0;
-            for (col = 0; col < N; col++) {
+        #pragma omp parallel for
+        for (int row = 0; row < N; row++) {
+            float dot = 0.0;
+            for (int col = 0; col < N; col++) {
                 if (row != col)
                 dot += A[row * N + col] * x[col];
             }
             xtmp[row] = (b[row] - dot) / A[row + row*N];
-
-            // Check for convergence
-            sqdiff += (x[row] - xtmp[row]) * (x[row] - xtmp[row]);
         }
         
         // Swap pointers
         ptrtmp = x;
         x      = xtmp;
         xtmp   = ptrtmp;
+
+        for (int row = 0; row < N; row++) {
+            // Check for convergence
+            sqdiff += (xtmp[row] - x[row]) * (xtmp[row] - x[row]);
+        }
         
         itr++;
     } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
