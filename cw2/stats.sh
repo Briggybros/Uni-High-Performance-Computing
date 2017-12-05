@@ -20,3 +20,5 @@ sd=$(bc -l <<< "sqrt($variance)")
 echo "Average: $expected"
 echo "Variance: $variance"
 echo "Standard Deviation: $sd"
+
+rm jacobi_*.out
