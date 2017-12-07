@@ -31,5 +31,5 @@ The loop which checks for convergence is also independent with respect to the ro
 
 | Size | Iterations | Error    | Solver Time (s) | Variance |
 |------|------------|----------|-----------------|----------|
-| 2000 | 5479       | 0.099972 | 0.479304        | 0.050865 |
+| 2000 | 5479       | 0.099972 | 0.448745        | 0.050865 |
 | 4000 | 10040      | 0.199880 | 18.653107       | 3.341367 |
