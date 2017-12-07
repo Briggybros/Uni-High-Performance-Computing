@@ -10,10 +10,6 @@
 cd $PBS_O_WORKDIR
 
 for i in `seq 1 20`; do
-    ./jacobi --norder 1000 --iterations 20000 >> jacobi_1000.out
-done
-
-for i in `seq 1 20`; do
     ./jacobi --norder 2000 --iterations 20000 >> jacobi_2000.out
 done
 

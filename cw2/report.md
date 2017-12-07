@@ -5,7 +5,6 @@
 The starting configuration from the serial coursework achieves the following times, added here as a reference:
 | Size | Iterations | Error    | Solver Time (s) |
 |------|------------|----------|-----------------|
-| 1000 | 2957       | 0.099972 | 0.587112        |
 | 2000 | 5479       | 0.099972 | 4.078155        |
 | 4000 | 10040      | 0.199882 | 45.478557       |
 
@@ -17,7 +16,6 @@ I first used OpenMP to parallelize the for loop which iterates over the rows of 
 
 | Size | Iterations | Error    | Solver Time (s) | Variance |
 |------|------------|----------|-----------------|----------|
-| 1000 | 2957       | 0.050049 | 0.176385        | 0.001835 |
 | 2000 | 5479       | 0.099972 | 0.452219        | 0.025781 |
 | 4000 | 10040      | 0.199880 | 17.588596       | 0.056305 |
 
@@ -33,6 +31,5 @@ The loop which checks for convergence is also independent with respect to the ro
 
 | Size | Iterations | Error    | Solver Time (s) | Variance |
 |------|------------|----------|-----------------|----------|
-| 1000 | 2957       | 0.050049 | 0.176385        | 0.001835 |
 | 2000 | 5479       | 0.099972 | 0.452219        | 0.025781 |
 | 4000 | 10040      | 0.199880 | 17.588596       | 0.056305 |
