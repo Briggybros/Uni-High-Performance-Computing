@@ -1,5 +1,7 @@
 # HPC Report 2 - Gregory Sims - gs15687 #
+
 ## Starting configuration ##
+
 The starting configuration from the serial coursework achieves the following times, added here as a reference:
 | Size | Iterations | Error    | Solver Time (s) |
 |------|------------|----------|-----------------|
@@ -15,13 +17,8 @@ I first used OpenMP to parallelize the for loop which iterates over the rows of 
 
 | Size | Iterations | Error    | Solver Time (s) | Variance |
 |------|------------|----------|-----------------|----------|
-| 1000 | 2957       | 0.050049 | 0.267605        | 0.010438 |
+| 1000 | 2957       | 0.050049 | 0.216150        | 0.008685 |
 | 2000 | 5479       | 0.099972 | 0.452219        | 0.025781 |
 | 4000 | 10040      | 0.199880 | 17.588596       | 0.056305 |
 
 This change causes an increase in performace because each row in the jacobi itteration is independent; meaning that the computation on any given row does not affect any other row. This in turn means that each row can be computed at the same time in parallel, instead of waiting for the previous row to complete as in the serial version.
-
-## Parallelize loop over columns ##
-
-I then attempted to parallelize the loop which iterates over the columns of each row. This should not cause any logical complications as the loop only increments a shared variable based on some conditions. Since addition is commutative, there is no scope for race conditions to occur.
-
