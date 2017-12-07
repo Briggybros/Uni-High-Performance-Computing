@@ -64,6 +64,7 @@ int run(float * restrict A, float * restrict b, float * restrict x, float * rest
         x      = xtmp;
         xtmp   = ptrtmp;
 
+        #pragma omp parallel for
         for (int row = 0; row < N; row++) {
             // Check for convergence
             sqdiff += (xtmp[row] - x[row]) * (xtmp[row] - x[row]);
