@@ -16,8 +16,8 @@ I first used OpenMP to paralellise the for loop which iterates over the rows of 
 
 | Size | Iterations | Error    | Solver Time (s) | Variance |
 |------|------------|----------|-----------------|----------|
-| 2000 | 5479       | 0.099972 | 0.452219        | 0.025781 |
-| 4000 | 10040      | 0.199880 | 17.588596       | 0.056305 |
+| 2000 | 5479       | 0.099972 | 0.510614        | 0.042909 |
+| 4000 | 10040      | 0.199880 | 17.653278       | 0.377585 |
 
 This change causes an increase in performance because each row in the jacobi iteration is independent; meaning that the computation on any given row does not affect any other row. This in turn means that each row can be computed at the same time in parallel, instead of waiting for the previous row to complete as in the serial version.
 
@@ -29,7 +29,7 @@ The inner for loop, which loops over the columns, cannot be paralellised because
 
 The loop which checks for convergence is also independent with respect to the rows, so it could be merged into the initial loop above. However, doing this naively will cause errors due to multiple threads entering the critical region at once when trying to change the sqdiff variable. To counter this, the OpenMP reduction pragma can be used. This pragma collects all of the results from the loop and applies a reduction to safely perform the addition.
 
-| Size | Iterations | Error    | Solver Time (s) | Variance |
-|------|------------|----------|-----------------|----------|
-| 2000 | 5479       | 0.099972 | 0.448745        | 0.050865 |
-| 4000 | 10040      | 0.199880 | 18.653107       | 3.341367 |
+| Size | Iterations | Error    | Solver Time (s) | Variance  |
+|------|------------|----------|-----------------|-----------|
+| 2000 | 5479       | 0.099972 | 0.448745        | 0.050865  |
+| 4000 | 10040      | 0.199880 | 19.460619       | 10.303102 |
