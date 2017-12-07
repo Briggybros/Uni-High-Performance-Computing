@@ -52,6 +52,7 @@ int run(float * restrict A, float * restrict b, float * restrict x, float * rest
         #pragma omp parallel for
         for (int row = 0; row < N; row++) {
             float dot = 0.0;
+            #pragma omp parallel for
             for (int col = 0; col < N; col++) {
                 if (row != col)
                 dot += A[row * N + col] * x[col];
