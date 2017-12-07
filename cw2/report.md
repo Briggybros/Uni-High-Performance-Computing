@@ -14,8 +14,8 @@ A comment should be made about the variance of the recorded times. I took 20 sam
 
 I first used OpenMP to paralellise the for loop which iterates over the rows of the matrix. This approach is typical of a loop level, or fine grain, parallel pattern; However, if this code were extended to work across nodes, then I suspect a task farm pattern would be more effective.
 
-| Size | Iterations | Error    | Solver Time (s) | Variance |
-|------|------------|----------|-----------------|----------|
+| Size | Iterations | Error    | Solver Time (s) | Variance | Fastest |
+|------|------------|----------|-----------------|----------|---------|
 | 2000 | 5479       | 0.099972 | 0.510614        | 0.042909 |
 | 4000 | 10040      | 0.199880 | 17.653278       | 0.377585 |
 
@@ -29,7 +29,7 @@ The inner for loop, which loops over the columns, cannot be paralellised because
 
 The loop which checks for convergence is also independent with respect to the rows, so it could be merged into the initial loop above. However, doing this naively will cause errors due to multiple threads entering the critical region at once when trying to change the sqdiff variable. To counter this, the OpenMP reduction pragma can be used. This pragma collects all of the results from the loop and applies a reduction to safely perform the addition.
 
-| Size | Iterations | Error    | Solver Time (s) | Variance  |
-|------|------------|----------|-----------------|-----------|
-| 2000 | 5479       | 0.099972 | 0.448745        | 0.050865  |
-| 4000 | 10040      | 0.199880 | 19.460619       | 10.303102 |
+| Size | Iterations | Error    | Solver Time (s) | Variance |
+|------|------------|----------|-----------------|----------|
+| 2000 | 5479       | 0.099972 | 0.400712        | 0.008934 |
+| 4000 | 10040      | 0.199880 | 18.957253       | 7.670672 |
