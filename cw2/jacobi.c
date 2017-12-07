@@ -49,7 +49,7 @@ int run(float * restrict A, float * restrict b, float * restrict x, float * rest
     do {
         sqdiff = 0.0;
         // Perform Jacobi iteration
-        #pragma omp parallel for private(col, dot) reduce(+:sqdiff)
+        #pragma omp parallel for private(col, dot) reduction(+:sqdiff)
         for (row = 0; row < N; row++) {
             dot = 0.0;
             for (col = 0; col < N; col++) {
