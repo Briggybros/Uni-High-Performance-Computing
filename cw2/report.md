@@ -30,3 +30,9 @@ The inner for loop, which loops over the columns, cannot be paralellized because
 ## Reducing the convergence check ##
 
 The loop which checks for convergence is also independent with respect to the rows, so it could be merged into the initial loop above. However, doing this naively will cause errors due to multiple threads entering the critical region at once when trying to change the sqdiff variable. To counter this, the OpenMP reduction pragma can be used. This pragma collects all of the results from the loop and applies a reduction to safely perform the addition.
+
+| Size | Iterations | Error    | Solver Time (s) | Variance |
+|------|------------|----------|-----------------|----------|
+| 1000 | 2957       | 0.050049 | 0.176385        | 0.001835 |
+| 2000 | 5479       | 0.099972 | 0.452219        | 0.025781 |
+| 4000 | 10040      | 0.199880 | 17.588596       | 0.056305 |
