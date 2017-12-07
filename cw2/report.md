@@ -17,7 +17,7 @@ I first used OpenMP to parallelize the for loop which iterates over the rows of 
 
 | Size | Iterations | Error    | Solver Time (s) | Variance |
 |------|------------|----------|-----------------|----------|
-| 1000 | 2957       | 0.050049 | 0.216150        | 0.008685 |
+| 1000 | 2957       | 0.050049 | 0.176385        | 0.001835 |
 | 2000 | 5479       | 0.099972 | 0.452219        | 0.025781 |
 | 4000 | 10040      | 0.199880 | 17.588596       | 0.056305 |
 
