@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mapfile -t times < <(cat jacobi_*.out | grep "Solver runtime" | cut -d ' ' -f4)
+mapfile -t times < <(cat $1 | grep "Solver runtime" | cut -d ' ' -f4)
 
 sum=0
 sqsum=0
@@ -21,4 +21,4 @@ echo "Average: $expected"
 echo "Variance: $variance"
 echo "Standard Deviation: $sd"
 
-rm jacobi_*.out
+rm $1
