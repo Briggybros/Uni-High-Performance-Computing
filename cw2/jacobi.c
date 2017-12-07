@@ -92,18 +92,22 @@ int main(int argc, char *argv[]) {
     double total_start = get_timestamp();
     
     // Initialize data
-    srand(SEED);
-    for (int row = 0; row < N; row++) {
-        float rowsum = 0.0;
-        for (int col = 0; col < N; col++)
-        {
-            float value = rand()/(float)RAND_MAX;
-            A[row * N + col] = value;
-            rowsum += value;
+    #pragma omp parallel
+    {
+        unsigned int seed = omp_get_thread_num();
+        #pragma omp for
+        for (int row = 0; row < N; row++) {
+            float rowsum = 0.0;
+            for (int col = 0; col < N; col++)
+            {
+                float value = rand_r(&seed)/(float)RAND_MAX;
+                A[row * N + col] = value;
+                rowsum += value;
+            }
+            A[row + row*N] += rowsum;
+            b[row] = (float)(rand_r(&seed)/(float)RAND_MAX);
+            x[row] = (float)0.0;
         }
-        A[row + row*N] += rowsum;
-        b[row] = (float)(rand()/(float)RAND_MAX);
-        x[row] = (float)0.0;
     }
     
     // Run Jacobi solver
