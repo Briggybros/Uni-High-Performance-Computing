@@ -23,6 +23,10 @@ I first used OpenMP to parallelize the for loop which iterates over the rows of 
 
 This change causes an increase in performance because each row in the jacobi iteration is independent; meaning that the computation on any given row does not affect any other row. This in turn means that each row can be computed at the same time in parallel, instead of waiting for the previous row to complete as in the serial version.
 
-## Parallelizing other loops ##
+## Parallelizing for loop over columns ##
 
-Both other for loops in the run function cannot be paralellized. The inner for loop, which loops over the columns, cannot be paralellized because the row variable cannot exist in more than one OpenMP scope. The loop which is used for checking convergence doesn't seem to be paralellized as doing so causes fluctuations in the iterations and the solution error.
+The inner for loop, which loops over the columns, cannot be paralellized because the row variable cannot exist in more than one OpenMP scope.
+
+## Reducing the convergence check ##
+
+The loop which checks for convergence is also independent with respect to the rows, so it could be merged into the initial loop above. However, doing this naively will cause errors due to multiple threads entering the critical region at once when trying to change the sqdiff variable. To counter this, the OpenMP reduction pragma can be used. This pragma collects all of the results from the loop and applies a reduction to safely perform the addition.
