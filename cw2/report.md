@@ -43,10 +43,14 @@ Generating the data, which the jacobi solver is to be run on, in parallel should
 | Size | Solver Time (s) | Variance |
 |------|-----------------|----------|
 | 2000 | 0.392383        | 0.019678 |
-| 4000 | 8.847069        | 1.655810 |
+| 4000 | 9.403560        | 1.655810 |
 
 The reductions in speed shown above would suggest that the creation of threads and transfer of data takes up a significant time.
 
 ## Scaling across cores ##
 
 For testing how the code scales over the number of cores used, a 4000x4000 matrix will be used. The average solver time is plotted against the number of cores used below.
+
+![Graph](https://i.imgur.com/0BAWCba.png)
+
+This graph shows that, initially, increasing the number of cores the code runs on will dramatically increase performance. However, after more than 4 cores are being used, the cost to communicate and synchronize between the cores is beginning to become the limiting factor of the speed of the code. Once around 12 cores are being used, the code appears to have reached a plateau, where increasing cores is no longer increasing performance, as the performance gains are being negated by the cost of communication. After about 14 cores, the speed of the code appears to decline. I suspect this is due to the code fitting to a sublinear declining form when scaled. There is the possibility that this is caused by some error from the timing and averaging, but I would suspect that if there were more than 16 cores available, the sublinear decline would continue.
